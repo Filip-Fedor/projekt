@@ -7,6 +7,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument("sciezka_emisja", help="Sciezka do pliku csv (Emisja CO2)")
 parser.add_argument("sciezka_GDP", help="Sciezka do pliku csv (GDP)")
 parser.add_argument("sciezka_populacja", help="Sciezka do pliku csv (populacja)")
+parser.add_argument("start_rok", help="Poczatek badanych lat")
+parser.add_argument("koniec_rok", help="Koniec badanych lat")
 args = parser.parse_args()
 
 
@@ -18,7 +20,14 @@ populacja = czytaj_plik(args.sciezka_populacja, "API_SP.POP.TOTL_DS2_en_csv_v2_4
 del populacja[populacja.columns[-1]]
 del gdp[gdp.columns[-1]]
 
-lata_wspolne_str = wspolne_lata(emisja, gdp, populacja)
+lata_podane = przedzial_lat(args.start_rok, args.koniec_rok)
+lata_wspolne_tabele = wspolne_lata(emisja, gdp, populacja)
+
+lata_wspolne_str = przeciecie2(lata_podane, lata_wspolne_tabele)
+lata_wspolne_str.sort()
+if len(lata_wspolne_str) == 0:
+    print("przedzial lat pusty")
+    exit()
 populacja_lata = populacja.columns[4:].tolist()
 gdp_lata = gdp.columns[4:].tolist()
 kol_usun_pop = roznica_ab(populacja_lata, lata_wspolne_str)
@@ -46,7 +55,10 @@ zmiana_nazwy(tabele_gdp, 'GDP')
 tabele_emisja_pop_gdp = lista_tabel_polacz(tabele_emisja, tabele_populacja, tabele_gdp)
 
 df_emisja_pop_gdp = pd.concat(tabele_emisja_pop_gdp)
+print(df_emisja_pop_gdp)
 
 df_najwiecej_co2 = tabela_najwiecej_co2(tabele_emisja)
-
 print(df_najwiecej_co2)
+
+df_najwiekszy_przychod = tabela_najwiekszy_przychod(tabele_emisja_pop_gdp)
+print(df_najwiekszy_przychod)
