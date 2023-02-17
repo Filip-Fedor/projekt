@@ -47,4 +47,6 @@ tabele_emisja_pop_gdp = lista_tabel_polacz(tabele_emisja, tabele_populacja, tabe
 
 df_emisja_pop_gdp = pd.concat(tabele_emisja_pop_gdp)
 
-print(df_emisja_pop_gdp)
+df_najwiecej_co2 = tabela_najwiecej_co2(tabele_emisja)
+
+print(df_najwiecej_co2)

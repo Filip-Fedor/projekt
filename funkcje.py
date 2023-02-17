@@ -60,3 +60,13 @@ def lista_tabel_polacz(l1, l2, l3):
     for i in range(len(l1)):
         lista_polaczonych_tabel.append(pd.merge(pd.merge(l1[i], l2[i], on='Country'), l3[i], on='Country'))
     return lista_polaczonych_tabel
+
+
+def tabela_najwiecej_co2(tabele_emisja):
+    tabele_rok = []
+    for i in range(len(tabele_emisja)):
+        tabele_rok.append(tabele_emisja[i][['Year', 'Country', 'Per Capita', 'Total']])
+        tabele_rok[i] = tabele_rok[i].sort_values('Per Capita', ascending=False)
+        tabele_rok[i] = tabele_rok[i].head()
+    tabela = pd.concat(tabele_rok)
+    return tabela
