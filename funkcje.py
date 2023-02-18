@@ -94,3 +94,28 @@ def tabela_najwiekszy_przychod(tabele_emisja_pop_gdp):
     tabela = pd.concat(tabele_rok2)
     del tabela['Population']
     return tabela
+
+
+def roznica_max_min(emisja, lata_wspolne):
+    if len(lata_wspolne) > 10:
+        lata_ostatnie = []
+        for i in range(-10, 0):
+            lata_ostatnie.append(lata_wspolne[i])
+    else:
+        lata_ostatnie = lata_wspolne
+    emisja2 = emisja[['Year', 'Country', 'Per Capita']]
+    emisja_rok_pierwszy = emisja2[emisja2['Year'] == lata_ostatnie[0]]
+    emisja_rok_ostatni = emisja2[emisja2['Year'] == lata_ostatnie[-1]]
+    kraj_rok_pierwszy = emisja_rok_pierwszy['Country'].tolist()
+    kraj_rok_pierwszy = list(dict.fromkeys(kraj_rok_pierwszy))
+    kraj_rok_ostatni = emisja_rok_ostatni['Country'].tolist()
+    kraj_rok_ostatni = list(dict.fromkeys(kraj_rok_ostatni))
+    difference = list(set(kraj_rok_ostatni).symmetric_difference(set(kraj_rok_pierwszy)))
+    print(f"Kraje, ktorych nie bylo w danych: {difference}")
+    wynik = pd.merge(emisja_rok_pierwszy, emisja_rok_ostatni, on="Country")
+    wynik.loc[:, 'diff'] = wynik['Per Capita_y'] - wynik['Per Capita_x']
+    wynik_max = wynik.sort_values('diff').head()
+    wynik_min = wynik.sort_values('diff', ascending=False).head()
+    print(wynik.sort_values('diff'))
+    print(wynik_max)
+    print(wynik_min)

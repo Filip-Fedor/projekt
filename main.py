@@ -62,3 +62,5 @@ print(df_najwiecej_co2)
 
 df_najwiekszy_przychod = tabela_najwiekszy_przychod(tabele_emisja_pop_gdp)
 print(df_najwiekszy_przychod)
+
+roznica_max_min(emisja, lata_wspolne_int)
