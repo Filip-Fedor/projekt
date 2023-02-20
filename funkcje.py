@@ -56,17 +56,6 @@ def wspolne_lata(emisja, gdp, populacja):
     return lata_wspolne
 
 
-# Mamy 3 dataframy: emisja, gdp, populacja
-# Z kazdego dataframu wybieramy kolumne z nazwami krajow i wrzucamy do list, nastepnie zwracamy przeciecie tych 3 list.
-def wspolne_kraje(emisja, gdp, populacja):
-    emisja_kraje = emisja['Country'].tolist()
-    emisja_kraje1 = list(dict.fromkeys(emisja_kraje))
-    gdp_kraje = gdp['Country Name'].tolist()
-    gdp_kraje1 = list(dict.fromkeys(gdp_kraje))
-    populacja_kraje = populacja['Country Name'].tolist()
-    populacja_kraje1 = list(dict.fromkeys(populacja_kraje))
-    return przeciecie3(emisja_kraje1, gdp_kraje1, populacja_kraje1)
-
 
 # Mamy dataframe tabela, ktora zawiera kolumny: Country Name oraz kolumny z latami, ktore sa tez w liscie lata_wspolne
 # Zwraca liste dataframow z nazwa kolumny: Country Name, w ktorej sa nazwy panstw, oraz z rokiem.

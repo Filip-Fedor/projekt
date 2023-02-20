@@ -29,6 +29,7 @@ if len(lata_wspolne_str) == 0:
     print("przedzial lat pusty")
     exit()
 
+print(f"Lata wspolne ze wszsytkich dataframow i z podanych przez uzytkownika: {lata_wspolne_str}")
 # W dataframe populacja, gdp mamy kolumny liczac od 4 z danym rokiem, tworzymy liste wszystkich lat.
 populacja_lata = populacja.columns[4:].tolist()
 gdp_lata = gdp.columns[4:].tolist()
