@@ -44,12 +44,6 @@ populacja = populacja.drop(kol_usun_pop, axis=1)
 populacja['Country Name'] = populacja['Country Name'].str.upper()
 gdp['Country Name'] = gdp['Country Name'].str.upper()
 
-# lista panstw wystepujacych we wszystkich dataframe
-kraje_wspolne = wspolne_kraje(emisja, gdp, populacja)
-# Zostawiamy te kraje, ktore wystepuja we wszystkich dataframach
-emisja = emisja[emisja['Country'].isin(kraje_wspolne)]
-populacja = populacja[populacja['Country Name'].isin(kraje_wspolne)]
-gdp = gdp[gdp['Country Name'].isin(kraje_wspolne)]
 
 # Dla wspolnych lat tworzymy dla kazdej dataframe liste dataframow dla kazdego roku oddzielnie
 tabele_populacja = lista_tabel_kraj_rok(populacja, lata_wspolne_str)
